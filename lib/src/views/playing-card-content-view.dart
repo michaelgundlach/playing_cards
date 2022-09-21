@@ -32,11 +32,17 @@ class PlayingCardContentView extends StatelessWidget {
         // taken from a few decks of standard decks of cards.
         double innerWidth = width * 1.6875 / 2.5;
         double innerHeight = height * 2.8125 / 3.5;
-        double sideSpace = (width - innerWidth) / 2.0;
-        double suitHeight = height * 0.160714;
-        double labelSuitHeight = suitHeight / 2.0;
-        double sideOffset = 0;
         double topOffset = height * 0.030714;
+        double sideOffset = 0;
+        if (suitBesideLabel!) {
+          innerWidth *= 0.7;
+          innerHeight *= 0.7;
+          sideOffset = width * 0.05; // can't rely on centering in sideSpace
+          topOffset *= .4; // Make space for likely use of vertical fans
+        }
+        double sideSpace = (width - innerWidth) / 2.0;
+        double suitHeight = height * 0.260714;
+        double labelSuitHeight = suitHeight / 2.0;
 
         TextStyle ts = valueTextStyle!.copyWith(
             fontSize: getGoodFontSize("I0", valueTextStyle!, sideSpace * .9));
@@ -60,9 +66,6 @@ class PlayingCardContentView extends StatelessWidget {
               children: [label, SizedBox(width: width * 0.02), suit],
             ),
           );
-          sideOffset = width * 0.036; // can't rely on centering in sideSpace
-          innerWidth *= 0.90; // give clearance for suit across the top
-          innerHeight *= 0.90; // maintain aspect ratio
         }
 
         return Stack(children: [
